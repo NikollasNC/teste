@@ -1,0 +1,53 @@
+using System.Globalization;
+
+namespace treinandoVetores
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int lucroAbaixo = 0, lucroEntre = 0, lucroAcima = 0;
+            double totalCompra = 0.0, totalVenda = 0.0, lucroTotal = 0.0; 
+
+            int quantMercadorias = int.Parse(Console.ReadLine());
+            double[] compra = new double[quantMercadorias];
+            double[] venda = new double[quantMercadorias];
+
+            for (int i = 0; i < quantMercadorias; i++)
+            {
+                string[] vet = Console.ReadLine().Split(' ');
+                compra[i] = double.Parse(vet[1], CultureInfo.InvariantCulture);
+                venda[i] = double.Parse(vet[2], CultureInfo.InvariantCulture);
+            }
+
+            for (int i = 0; i < quantMercadorias; i++)
+            {
+                double porcentagemLucro = venda[i] / compra[i] * 100 - 100;
+
+                if (porcentagemLucro > 20)
+                {
+                    lucroAcima++;
+                }
+                else if (porcentagemLucro <= 20 && porcentagemLucro >= 10)
+                {
+                    lucroEntre++;
+                }
+                else
+                {
+                    lucroAbaixo++;
+                }
+
+                totalCompra += compra[i];
+                totalVenda += venda[i];
+                lucroTotal += venda[i] - compra[i];
+            }
+
+            Console.WriteLine("Lucro abaixo de 10%: " + lucroAbaixo);
+            Console.WriteLine("Lucro entre 10% e 20%: " + lucroEntre);
+            Console.WriteLine("Lucro acima dee 20%: " + lucroAcima);
+            Console.WriteLine("valor total de compra: " + totalCompra.ToString("F2", CultureInfo.InvariantCulture));
+            Console.WriteLine("Valor total de venda: " + totalVenda.ToString("F2", CultureInfo.InvariantCulture));
+            Console.WriteLine("Lucro total: " + lucroTotal.ToString("F2", CultureInfo.InvariantCulture));
+        }
+    }
+}
